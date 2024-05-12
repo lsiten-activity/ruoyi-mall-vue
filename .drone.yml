@@ -3,7 +3,6 @@ type: docker
 name: 前端node项目部署
 
 environment:
-  NODE_VERSION: "18.20.2"
   APP_PORT: 16161
 
 volumes:
@@ -19,6 +18,8 @@ volumes:
 
 steps:
     - name: 构建
+      environment:
+        NODE_VERSION: "18.20.2"  # 确保环境变量在此步骤中生效
       image: node:${NODE_VERSION}
       pull: if-not-exists
       volumes:
