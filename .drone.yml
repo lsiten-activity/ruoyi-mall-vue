@@ -4,6 +4,7 @@ name: 前端node项目部署
 
 environment:
   NODE_VERSION: 18.20.2
+  APP_PORT: 16161
 volumes:
   - name: npm-cache
     host:
