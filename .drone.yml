@@ -17,7 +17,7 @@ volumes:
       path: /var/run/docker.sock
 
 steps:
-    - name: build
+    - name: 部署
       image: node:18.20.2
       pull: if-not-exists
       environment:
@@ -28,9 +28,9 @@ steps:
         - name: build-dist
           path: /app/build
       commands:
-        - mkdir -p /cache/npm/${CURRENT_NODE_VERSION}/node_global && mkdir -p /cache/npm/${CURRENT_NODE_VERSION}/node_cache
-        - npm config set prefix "/cache/npm/${CURRENT_NODE_VERSION}/node_global"
-        - npm config set cache "/cache/npm/${CURRENT_NODE_VERSION}/node_cache"
+        - mkdir -p /cache/npm/${$CURRENT_NODE_VERSION}/node_global && mkdir -p /cache/npm/${$CURRENT_NODE_VERSION}/node_cache
+        - npm config set prefix "/cache/npm/${$CURRENT_NODE_VERSION}/node_global"
+        - npm config set cache "/cache/npm/${$CURRENT_NODE_VERSION}/node_cache"
         - npm config get prefix
         - npm config get cache
         - npm install yarn
