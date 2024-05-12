@@ -21,7 +21,7 @@ steps:
       image: "node:${NODE_VERSION}"
       pull: if-not-exists
       environment:
-        NODE_VERSION: "18.20.2"  # 确保环境变量在此步骤中生效
+        NODE_VERSION: 18.20.2  # 确保环境变量在此步骤中生效
       volumes:
         - name: npm-cache
           path: /cache/npm
