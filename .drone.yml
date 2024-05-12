@@ -27,8 +27,8 @@ steps:
         - name: build-dist
           path: /app/build
       commands:
-        - export NODE_GLOBAL_PATH=/cache/npm/$CURRENT_NODE_VERSION/node_global
-        - export NODE_CACHE_PATH=/cache/npm/$CURRENT_NODE_VERSION/node_cache
+        - export NODE_GLOBAL_PATH=/cache/npm/$${CURRENT_NODE_VERSION}/node_global
+        - export NODE_CACHE_PATH=/cache/npm/$${CURRENT_NODE_VERSION}/node_cache
         - echo $NODE_GLOBAL_PATH
         - echo $NODE_CACHE_PATH
         - mkdir -p $NODE_GLOBAL_PATH && mkdir -p $NODE_CACHE_PATH
