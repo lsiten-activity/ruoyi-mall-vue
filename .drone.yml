@@ -3,8 +3,7 @@ type: docker
 name: 前端node项目部署
 
 environment:
-  APP_PORT: 16161
-  CURRENT_NODE_VERSION: "18.20.2"  # 确保环境变量在此步骤中生 
+  CURRENT_NODE_VERSION: "18.20.2"  # 确保环境变量在此步骤中生
 
 volumes:
   - name: npm-cache
