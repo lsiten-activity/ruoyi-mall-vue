@@ -19,10 +19,9 @@ volumes:
 
 steps:
     - name: 编译
-      image: $IMAGE_NAME
+      image: node:18.20.2
       pull: if-not-exists
       environment:
-        IMAGE_NAME: node:$CURRENT_NODE_VERSION
         NODE_GLOBAL_PATH: /cache/npm/$CURRENT_NODE_VERSION/node_global
         NODE_CACHE_PATH: /cache/npm/$CURRENT_NODE_VERSION/node_cache
       volumes:
@@ -31,7 +30,6 @@ steps:
         - name: build-dist
           path: /app/build
       commands:
-        - echo $IMAGE_NAME
         - echo $NODE_GLOBAL_PATH
         - echo $NODE_CACHE_PATH
         - mkdir -p $NODE_GLOBAL_PATH && mkdir -p $NODE_CACHE_PATH
