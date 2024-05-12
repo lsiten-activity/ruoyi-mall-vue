@@ -1,0 +1,82 @@
+kind: pipeline
+type: docker
+name: 前端node项目部署
+
+environment:
+  NODE_VERSION:
+    from_secret: node_version
+  LOG_PATH:
+    from_secret: log_path
+
+volumes:
+  - name: npm-cache
+    host:
+      path: /volume2/docker/drone/server-01/drone-runner-docker/npm-cache
+  - name: build-dist
+    host:
+      path: /volume2/docker/drone/server-01/drone-runner-docker/apps/node/build-dist
+  - name: docker
+    host:
+      path: /var/run/docker.sock
+
+steps:
+    - name: 构建
+      image: node:${NODE_VERSION}
+      pull: if-not-exists
+      volumes:
+        - name: npm-cache
+          path: /cache/npm
+        - name: build-dist
+          path: /app/build
+      commands:
+        - mkdir -p /cache/npm/${NODE_VERSION}/node_global && mkdir -p /cache/npm/${NODE_VERSION}/node_cache
+        - npm config set prefix "/cache/npm/${NODE_VERSION}/node_global"
+        - npm config set cache "/cache/npm/${NODE_VERSION}/node_cache"
+        - npm config get prefix
+        - npm config get cache
+        - npm install yarn
+        - yarn install
+        - yarn -v
+        - yarn build:prod
+        - mkdir -p /app/build/${DRONE_REPO_NAME} && rm -rf /app/build/${DRONE_REPO_NAME}/*
+        - mkdir -p /app/build/${DRONE_REPO_NAME}/dist && cp -R ./dist/* /app/build/${DRONE_REPO_NAME}/dist/
+        - mkdir -p /app/build/${DRONE_REPO_NAME} && cp -R ./Dockerfile /app/build/${DRONE_REPO_NAME}/
+        - mkdir -p /app/build/${DRONE_REPO_NAME} && cp -R ./nginx.conf /app/build/${DRONE_REPO_NAME}/default.conf
+    - name: 部署
+      image: plugins/docker
+      volumes:
+        - name: build-dist
+          path: /app/build
+        - name: docker
+          path: /var/run/docker.sock # 挂载宿主机的docker
+      settings:
+        dockerfile: /app/build/${DRONE_REPO_NAME}/Dockerfile
+      commands:
+        - cd /app/build/${DRONE_REPO_NAME}/
+        - ls -al /app/build/${DRONE_REPO_NAME}/
+        - chmod +x run-docker.sh
+        - /app/build/${DRONE_REPO_NAME}/run-docker.sh
+        - docker ps
+    - name: 构建通知
+      image: plugins/webhook
+      pull: if-not-exists
+      settings:
+        urls: https://oapi.dingtalk.com/robot/send?access_token=d23bb0bb02a1253f5fa8e5be917fb8f0798580df63dcf83f6a97ef08b9fee3e5
+        content_type: application/json
+        template:
+          {
+            "msgtype": "markdown",
+            "markdown": {
+              "title": "构建通知",
+              "text": "{{#success build.status}}{{else}}{{/success}}**{{repo.owner}}/{{repo.name}}**\n
+> **构建结果**: {{build.status}}\n\n
+> **构建详情**: [点击查看]({{build.link}})\n\n
+> **代码分支**: {{build.branch}}\n\n
+> **提交标识**: {{build.commit}}\n\n
+> **提交发起**: {{build.author}}\n\n
+> **提交信息**: {{build.message}}"
+            }
+          }
+trigger:
+  branch:
+    - master
