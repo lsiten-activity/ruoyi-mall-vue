@@ -4,6 +4,7 @@ name: 前端node项目部署
 
 environment:
   APP_PORT: 16161
+  NODE_VERSION: 18.20.2  # 确保环境变量在此步骤中生 
 
 volumes:
   - name: npm-cache
@@ -20,8 +21,6 @@ steps:
     - name: 构建
       image: node:$NODE_VERSION
       pull: if-not-exists
-      environment:
-        NODE_VERSION: 18.20.2  # 确保环境变量在此步骤中生效
       volumes:
         - name: npm-cache
           path: /cache/npm
