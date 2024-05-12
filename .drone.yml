@@ -4,7 +4,7 @@ name: 前端node项目部署
 
 environment:
   APP_PORT: 16161
-  NODE_VERSION: "18.20.2"  # 确保环境变量在此步骤中生 
+  CURRENT_NODE_VERSION: 18.20.2  # 确保环境变量在此步骤中生 
 
 volumes:
   - name: npm-cache
@@ -19,7 +19,7 @@ volumes:
 
 steps:
     - name: 构建
-      image: node:$NODE_VERSION
+      image: node:$CURRENT_NODE_VERSION
       pull: if-not-exists
       volumes:
         - name: npm-cache
@@ -27,9 +27,9 @@ steps:
         - name: build-dist
           path: /app/build
       commands:
-        - mkdir -p /cache/npm/$NODE_VERSION/node_global && mkdir -p /cache/npm/$NODE_VERSION/node_cache
-        - npm config set prefix "/cache/npm/$NODE_VERSION/node_global"
-        - npm config set cache "/cache/npm/$NODE_VERSION/node_cache"
+        - mkdir -p /cache/npm/${CURRENT_NODE_VERSION}/node_global && mkdir -p /cache/npm/${CURRENT_NODE_VERSION}/node_cache
+        - npm config set prefix "/cache/npm/${CURRENT_NODE_VERSION}/node_global"
+        - npm config set cache "/cache/npm/${CURRENT_NODE_VERSION}/node_cache"
         - npm config get prefix
         - npm config get cache
         - npm install yarn
