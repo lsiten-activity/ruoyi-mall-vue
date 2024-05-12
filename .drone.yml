@@ -19,7 +19,7 @@ volumes:
 
 steps:
     - name: 构建
-      image: node:$CURRENT_NODE_VERSION
+      image: "node:${CURRENT_NODE_VERSION}"
       pull: if-not-exists
       volumes:
         - name: npm-cache
