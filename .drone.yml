@@ -28,9 +28,9 @@ steps:
         - name: build-dist
           path: /app/build
       commands:
-        - mkdir -p /cache/npm/${$CURRENT_NODE_VERSION}/node_global && mkdir -p /cache/npm/${$CURRENT_NODE_VERSION}/node_cache
-        - npm config set prefix "/cache/npm/${$CURRENT_NODE_VERSION}/node_global"
-        - npm config set cache "/cache/npm/${$CURRENT_NODE_VERSION}/node_cache"
+        - mkdir -p /cache/npm/$${CURRENT_NODE_VERSION}/node_global && mkdir -p /cache/npm/$${CURRENT_NODE_VERSION}/node_cache
+        - npm config set prefix "/cache/npm/$${CURRENT_NODE_VERSION}/node_global"
+        - npm config set cache "/cache/npm/$${CURRENT_NODE_VERSION}/node_cache"
         - npm config get prefix
         - npm config get cache
         - npm install yarn
