@@ -5,10 +5,10 @@
   "author": "若依",
   "license": "MIT",
   "scripts": {
-    "dev": "vue-cli-service serve",
+    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
     "start": "vue-cli-service serve",
-    "build:prod": "vue-cli-service build",
-    "build:stage": "vue-cli-service build --mode staging",
+    "build:prod": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
+    "build:stage": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build --mode staging",
     "preview": "node build/index.js --preview",
     "lint": "eslint --ext .js,.vue src"
   },
@@ -93,7 +93,10 @@
     "npm": ">= 3.0.0"
   },
   "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ]
+    "defaults",
+    "not IE 11"
+  ],
+  "resolutions": {
+    "vue-loader": "15.9.2"
+  }
 }
