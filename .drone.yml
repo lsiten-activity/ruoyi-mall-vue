@@ -18,7 +18,7 @@ volumes:
 
 steps:
     - name: 构建
-      image: "node:${CURRENT_NODE_VERSION}"
+      image: node:18.20.2
       pull: if-not-exists
       environment:
         CURRENT_NODE_VERSION: "18.20.2"  # 确保环境变量在此步骤中生
