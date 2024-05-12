@@ -25,7 +25,6 @@ steps:
         IMAGE_NAME: node:$CURRENT_NODE_VERSION
         NODE_GLOBAL_PATH: /cache/npm/$CURRENT_NODE_VERSION/node_global
         NODE_CACHE_PATH: /cache/npm/$CURRENT_NODE_VERSION/node_cache
-        node_global
       volumes:
         - name: npm-cache
           path: /cache/npm
