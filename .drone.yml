@@ -36,7 +36,7 @@ steps:
         - npm config set cache $NODE_CACHE_PATH
         - npm config get prefix
         - npm config get cache
-        - npm install yarn
+        - npm install yarn -g
         - yarn install
         - yarn -v
         - yarn build:prod
