@@ -22,8 +22,8 @@ steps:
       image: node:18.20.2
       pull: if-not-exists
       environment:
-        NODE_GLOBAL_PATH: /cache/npm/$CURRENT_NODE_VERSION/node_global
-        NODE_CACHE_PATH: /cache/npm/$CURRENT_NODE_VERSION/node_cache
+        NODE_GLOBAL_PATH: /cache/npm/${CURRENT_NODE_VERSION}/node_global
+        NODE_CACHE_PATH: /cache/npm/${CURRENT_NODE_VERSION}/node_cache
       volumes:
         - name: npm-cache
           path: /cache/npm
