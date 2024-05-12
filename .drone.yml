@@ -38,6 +38,7 @@ steps:
         - npm config get prefix
         - npm config get cache
         - npm install yarn -g
+        - yarn config set ignore-engines true
         - yarn install
         - yarn -v
         - yarn build:prod
