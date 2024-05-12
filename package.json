@@ -7,8 +7,8 @@
   "scripts": {
     "dev": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
     "start": "vue-cli-service serve",
-    "build:prod": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
-    "build:stage": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build --mode staging",
+    "build:prod": "vue-cli-service build",
+    "build:stage": "vue-cli-service build --mode staging",
     "preview": "node build/index.js --preview",
     "lint": "eslint --ext .js,.vue src"
   },
