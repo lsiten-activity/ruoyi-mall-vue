@@ -19,7 +19,7 @@ volumes:
 
 steps:
     - name: 编译
-      image: node:16.17.1-slim
+      image: node:20.8.0
       pull: if-not-exists
       volumes:
         - name: npm-cache
