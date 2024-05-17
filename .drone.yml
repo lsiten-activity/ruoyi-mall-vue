@@ -34,6 +34,7 @@ steps:
         - mkdir -p $NODE_GLOBAL_PATH && mkdir -p $NODE_CACHE_PATH
         - node -v
         # - npm config set registry https://registry.npmmirror.com # 淘宝源
+        - rm -rf ./node_modules && rm -rf ./yarn.lock
         - npm config set prefix $NODE_GLOBAL_PATH
         - npm config set cache $NODE_CACHE_PATH
         - npm config get prefix
