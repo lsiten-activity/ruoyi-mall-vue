@@ -3,6 +3,7 @@ type: docker
 name: 前端node项目部署
 
 environment:
+  # @todo 映射到外部的端口号需要改
   APP_PORT: 16161
   CURRENT_NODE_VERSION: "20.8.0"  # 确保环境变量在此步骤中生
 
@@ -36,8 +37,6 @@ steps:
         - echo $NODE_CACHE_PATH
         - mkdir -p $NODE_GLOBAL_PATH && mkdir -p $NODE_CACHE_PATH
         - node -v
-        # - npm config set registry https://registry.npmmirror.com # 淘宝源
-        # - rm -rf ./node_modules && rm -rf ./yarn.lock
         - rm -rf ./node_modules
         - npm config set prefix $NODE_GLOBAL_PATH
         - npm config set cache $NODE_CACHE_PATH
@@ -47,8 +46,10 @@ steps:
         - yarn config set ignore-engines true
         - yarn
         - yarn -v
+        # @todo 可能需要改的
         - yarn build:prod
         - mkdir -p /app/build/${DRONE_REPO_NAME} && rm -rf /app/build/${DRONE_REPO_NAME}/*
+        # @todo 可能需要改的 复制构建后的产物地址可能不一样 本项目为 ./dist/
         - mkdir -p /app/build/${DRONE_REPO_NAME}/dist && cp -R ./dist/* /app/build/${DRONE_REPO_NAME}/dist/
         - mkdir -p /app/build/${DRONE_REPO_NAME} && cp -R ./.droneconfig/* /app/build/${DRONE_REPO_NAME}/
 
