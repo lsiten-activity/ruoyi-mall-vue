@@ -49,6 +49,7 @@ steps:
         - mkdir -p /app/build/${DRONE_REPO_NAME}/dist && cp -R ./dist/* /app/build/${DRONE_REPO_NAME}/dist/
         - mkdir -p /app/build/${DRONE_REPO_NAME} && cp -R ./Dockerfile /app/build/${DRONE_REPO_NAME}/
         - mkdir -p /app/build/${DRONE_REPO_NAME} && cp -R ./nginx.conf /app/build/${DRONE_REPO_NAME}/default.conf
+        - mkdir -p /app/build/${DRONE_REPO_NAME} && cp -R ./run-docker.sh /app/build/${DRONE_REPO_NAME}/
     - name: 部署
       image: plugins/docker
       volumes:
