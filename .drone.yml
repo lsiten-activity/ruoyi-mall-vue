@@ -65,7 +65,7 @@ steps:
       settings:
         dockerfile: /app/build/${DRONE_REPO_NAME}/Dockerfile
       commands:
-        - - mkdir -p /cache/log/${DRONE_REPO_NAME}
+        - mkdir -p /cache/log/${DRONE_REPO_NAME}
         - cd /app/build/${DRONE_REPO_NAME}/
         - ls -al /app/build/${DRONE_REPO_NAME}/
         - chmod +x run-docker.sh
