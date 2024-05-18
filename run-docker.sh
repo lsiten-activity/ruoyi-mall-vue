@@ -31,7 +31,7 @@ docker run -d \
   -p "${port}:8000" \
   -e TZ="Asia/Shanghai" \
   -v "${LOG_PATH}:/var/log/nginx" \
-  -v /etc/localtime:/etc/localtime:ro && \ # 将/etc/localtime设置为只读
+  -v /etc/localtime:/etc/localtime:ro \ # 将/etc/localtime设置为只读
   "${group_name}/${app_name}:${app_version}"
 
 # 输出应用启动信息
