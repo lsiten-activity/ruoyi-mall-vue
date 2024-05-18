@@ -10,6 +10,9 @@ volumes:
   - name: npm-cache
     host:
       path: /volume2/docker/drone/server-01/drone-runner-docker/npm-cache
+  - name: log-cache
+    host:
+      path: /volume2/docker/drone/server-01/drone-runner-docker/log-cache
   - name: build-dist
     host:
       path: /volume2/docker/drone/server-01/drone-runner-docker/apps/node/build-dist
@@ -53,6 +56,8 @@ steps:
     - name: 部署
       image: plugins/docker
       volumes:
+        - name: npm-cache
+          path: /cache/log
         - name: build-dist
           path: /app/build
         - name: docker
@@ -60,6 +65,7 @@ steps:
       settings:
         dockerfile: /app/build/${DRONE_REPO_NAME}/Dockerfile
       commands:
+        - - mkdir -p /cache/log/${DRONE_REPO_NAME}
         - cd /app/build/${DRONE_REPO_NAME}/
         - ls -al /app/build/${DRONE_REPO_NAME}/
         - chmod +x run-docker.sh
