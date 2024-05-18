@@ -56,7 +56,7 @@ steps:
     - name: 部署
       image: plugins/docker
       volumes:
-        - name: npm-cache
+        - name: log-cache
           path: /cache/log
         - name: build-dist
           path: /app/build
